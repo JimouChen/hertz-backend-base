@@ -5,6 +5,7 @@ import (
 	"github.com/goccy/go-json"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 // FileUtils 用于文件操作的工具类
@@ -12,8 +13,11 @@ type FileUtils struct{}
 
 // WriteToJSON 将字典或列表数据写入到JSON文件
 func (fu *FileUtils) WriteToJSON(jsonPath string, data interface{}, mode string) error {
+	err := fu.CheckDirPath(jsonPath)
+	if err != nil {
+		return err
+	}
 	var file *os.File
-	var err error
 
 	switch mode {
 	case "w":
@@ -57,4 +61,21 @@ func (fu *FileUtils) LoadJSON(jsonPath string) (interface{}, error) {
 	}
 
 	return data, nil
+}
+
+// CheckDirPath 检查目录路径是否存在，如果不存在则创建
+func (fu *FileUtils) CheckDirPath(filePath string) error {
+	// 提取文件路径的目录部分
+	dirPath := filepath.Dir(filePath)
+
+	// 检查目录是否存在
+	if _, err := os.Stat(dirPath); os.IsNotExist(err) {
+		// 如果目录不存在，则创建目录
+		err := os.MkdirAll(dirPath, os.ModePerm)
+		if err != nil {
+			return err
+		}
+		log.Printf("mkdir path: %s", dirPath) // 使用 log 输出警告信息
+	}
+	return nil
 }
