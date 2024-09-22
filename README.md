@@ -1,7 +1,7 @@
 # hertz-backend-base
 A backend basic web framework implemented by herzt
 
-## some call demo for utils
+## some call demo for common utils
 - file
 
 ```go
