@@ -1,0 +1,34 @@
+app:
+  name: "Demo"
+  env: "dev"
+  version: "v1.0.0"
+  start_time: "2024-01-01"
+
+key:
+  aes_32_code: "your-32-byte-long-key-here!"
+
+log:
+  level: "debug"
+  filename: "./log/Demo.log"
+  max_size: 100
+  max_age: 30
+  mysql:
+    filename: "./log/MysqlOpt.log"
+
+mysql:
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "jVscUBNPhTT0d-BaAopgzbnj2dShX6Gq" # need to use aes code to decrypt
+  dbname: "xxx"
+  max_open_connections: 20
+  max_idle_connections: 10
+
+dev:
+  url: "127.0.0.1:2333"
+
+test:
+  url: "10.11.111.111:2333"
+
+release:
+  url: "10.11.111.112:2333"
